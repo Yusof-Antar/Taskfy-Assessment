@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../../node_modules/.prisma/cliednt"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  password     String
+  role         Role           @default(EMPLOYEE)
+  manager      User?          @relation("UserManager", fields: [managerId], references: [id])
+  managerId    Int?
+  subordinates User[]         @relation("UserManager")
+  hours        Hour[]
+  availability Availability[]
+  Project      Project[]
+}
+
+model Project {
+  id             Int           @id @default(autoincrement())
+  name           String
+  allocatedHours Float
+  consumedHours  Float         @default(0)
+  admin          User          @relation(fields: [adminId], references: [id])
+  adminId        Int
+  status         ProjectStatus @default(ACTIVE)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  hours          Hour[]
+}
+
+model Hour {
+  id          Int      @id @default(autoincrement())
+  employee    User     @relation(fields: [employeeId], references: [id])
+  employeeId  Int
+  project     Project  @relation(fields: [projectId], references: [id])
+  projectId   Int
+  loggedHours Float
+  loggedDate  DateTime
+}
+
+model Availability {
+  id            Int      @id @default(autoincrement())
+  employee      User     @relation(fields: [employeeId], references: [id])
+  employeeId    Int
+  availableDate DateTime
+  startTime     DateTime
+  endTime       DateTime
+}
+
+enum Role {
+  EMPLOYEE
+  MANAGER
+}
+
+enum ProjectStatus {
+  ACTIVE
+  CLOSED
+}
