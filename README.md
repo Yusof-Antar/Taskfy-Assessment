@@ -18,12 +18,12 @@ The backend is connected to a MySQL database through Prisma ORM. After creating 
 * Login
 * Register
 
-1. **User Management** :
+2. **User Management** :
 
 * Add User as Employee (Manager only).
 * Show My Employees (Manager only).
 
-1. **Project Management** :
+3. **Project Management** :
 
 * Add Project
 * Edit Project
@@ -32,11 +32,11 @@ The backend is connected to a MySQL database through Prisma ORM. After creating 
 * Delete Project
 * Show Project
 
-1. **User Logs** :
+4. **User Logs** :
 
 * Log Hours for a Specific Project (Prevention and Email Notification included).
 
-1. **Employee Availability** :
+5. **Employee Availability** :
 
 * Add Availability
 * Get My Employees' Availability
@@ -61,15 +61,15 @@ The frontend uses Vite React with Tailwind CSS for building a clean and responsi
    cd backend
 ```
 
-1. **Install Dependencies** :
+2. **Install Dependencies** :
 
 ```bash
    npm install
 ```
 
-1. **Set Up Environment Variables** :
+3. **Set Up Environment Variables** :
 
-   Create a `.env` file in the root directory with the following:
+Create a `.env` file in the root directory with the following:
 
 ```env
    DATABASE_URL=mysql://username:password@localhost:3306/database_name
@@ -85,20 +85,21 @@ The frontend uses Vite React with Tailwind CSS for building a clean and responsi
 * Replace `username`, `password`, and `database_name` with your MySQL credentials.
 * For `EMAIL_PASSWORD`, generate a Google App Password as described below.
 
-1. **Generate Google App Password** :
+4. **Generate Google App Password** :
 
 * Go to [Google Account - App Passwords](https://myaccount.google.com/apppasswords).
 * Select **Mail** as the app and your device or **Other** for a custom name.
 * Generate and copy the 16-character password.
 * Use it in the `EMAIL_PASSWORD` field in `.env`.
 
-1. **Run Migrations** :
+5. **Run Migrations** :
 
 ```bash
    npx prisma migrate dev
+   npx prisma db seed
 ```
 
-1. **Start the Server** :
+6. **Start the Server** :
 
 ```bash
    npm run start:dev
@@ -115,27 +116,33 @@ The frontend uses Vite React with Tailwind CSS for building a clean and responsi
    cd frontend
 ```
 
-1. **Install Dependencies** :
+2. **Install Dependencies** :
 
 ```bash
    npm install
 ```
 
-1. **Set Up Environment Variables** :
+3. **Set Up Environment Variables** :
 
-   Create a `.env` file in the root directory with the following:
+Create a `.env` file in the root directory with the following:
 
 ```env
-   VITE_BACKEND_URL=http://localhost:3000/
+   VITE_URL=http://localhost:3000/
 ```
 
    Replace `http://localhost:3000/` with your backend's base URL if different.
 
-1. **Start the Frontend** :
+4. **Start the Frontend** :
 
 ```bash
    npm run dev
 ```
+
+---
+
+> Email: admin@example.com
+
+> password: admin123
 
 ---
 
